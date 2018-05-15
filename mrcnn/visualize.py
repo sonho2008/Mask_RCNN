@@ -280,7 +280,7 @@ def draw_box(image, box, color):
     return image
 
 
-def display_top_masks(image, mask, class_ids, class_names, limit=4):
+def display_top_masks(image, mask, class_ids, class_names, limit=4, cmap="Vega20_r"):
     """Display the given image and the top few class masks."""
     to_display = []
     titles = []
@@ -300,7 +300,7 @@ def display_top_masks(image, mask, class_ids, class_names, limit=4):
         m = np.sum(m * np.arange(1, m.shape[-1] + 1), -1)
         to_display.append(m)
         titles.append(class_names[class_id] if class_id != -1 else "-")
-    display_images(to_display, titles=titles, cols=limit + 1, cmap="Blues_r")
+    display_images(to_display, titles=titles, cols=limit + 1, cmap=cmap)
 
 
 def plot_precision_recall(AP, precisions, recalls):
