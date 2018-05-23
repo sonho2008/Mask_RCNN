@@ -190,7 +190,10 @@ class Config(object):
     # Gradient norm clipping
     GRADIENT_CLIP_NORM = 5.0
 
-    # Data augmentation in computation graph. Requires USE_MINI_MASK=False
+    # Data augmentation in computation graph. It requires:
+    # USE_MINI_MASK = False since masks need to be transformed,
+    # IMAGE_RESIZE_MODE = 'square' for fixed image dimension in training
+    #
     # Specify augmenters as pairs (aug_name, aug_args), for example:
     # TF_AUGMENTERS = [('fliplr', [0.5]),('flipud', [0.5])]
     TF_AUGMENTERS = []
@@ -211,7 +214,9 @@ class Config(object):
         self.IMAGE_META_SIZE = 1 + 3 + 3 + 4 + 1 + self.NUM_CLASSES
 
         # Check consitency
-        assert not(len(self.TF_AUGMENTERS)>0 and self.USE_MINI_MASK)
+        if len(self.TF_AUGMENTERS) > 0:
+            assert (not self.USE_MINI_MASK)
+            assert self.IMAGE_RESIZE_MODE=='square'
 
     def display(self):
         """Display Configuration values."""
