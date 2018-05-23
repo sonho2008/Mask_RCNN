@@ -8,11 +8,10 @@ import keras.layers as KL
 def bbox_from_mask(mask):
     return #TODO
 
-def aug_rotate(*args):
-    return #TODO
-
-def aug_flipud(*args):
-    return #TODO
+def random_choice(t1, t2, prob1=0.5):
+    c = tf.constant(prob1)
+    r = tf.random_uniform([], 0.0, 1.0)
+    return tf.cond(r<c, lambda:t1, lambda:t2)
 
 def flip_lr_func(image):
     imshape = list(image.get_shape())
@@ -32,5 +31,12 @@ def aug_fliplr(*args):
     layer = KL.Lambda(flip_lr_func)
     return layer
 
+def aug_rotate(*args):
+    return #TODO
+
+def aug_flipud(*args):
+    return #TODO
+
 def get_augmenter(name, args):
     return globals()['aug_' + name](*args)
+
