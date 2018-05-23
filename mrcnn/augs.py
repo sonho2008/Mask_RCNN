@@ -18,17 +18,19 @@ def flip_lr_func(image):
     if len(imshape)==3: #[H,W,3]
         return tf.image.flip_left_right(image)
     elif len(imshape)==4: #[bsize, H, W, 3]
-        images = tf.split(image, num_or_size_splits=imshape[0], axis=0)
-        images_3d = [tf.reshape(im, shape=imshape[1:]) for im in images]
+        images_3d = tf.unstack(image, axis=0)
         flipped_ims = [tf.reshape(flip_lr_func(im), shape=[1]+imshape[1:])
             for im in images_3d]
         return tf.concat(flipped_ims, axis=0)
     else:
         raise ValueError("unexpected image shape")
 
-def aug_fliplr(*args):
-    #TODO : randomize using args
-    layer = KL.Lambda(flip_lr_func)
+def rotate_func(image):
+    imshape = list(image.get_shape())
+    return #TODO
+
+def aug_fliplr(prob=0.5):
+    layer = KL.Lambda(lambda image: random_choice(flip_lr_func(image), image, prob))
     return layer
 
 def aug_rotate(*args):
