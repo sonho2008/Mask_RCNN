@@ -190,6 +190,11 @@ class Config(object):
     # Gradient norm clipping
     GRADIENT_CLIP_NORM = 5.0
 
+    # Data augmentation in computation graph. Requires USE_MINI_MASK=False
+    # Specify augmenters as pairs (aug_name, aug_args), for example:
+    # TF_AUGMENTERS = [('fliplr', [0.5]),('flipud', [0.5])]
+    TF_AUGMENTERS = []
+
     def __init__(self):
         """Set values of computed attributes."""
         # Effective batch size
@@ -204,6 +209,9 @@ class Config(object):
         # Image meta data length
         # See compose_image_meta() for details
         self.IMAGE_META_SIZE = 1 + 3 + 3 + 4 + 1 + self.NUM_CLASSES
+
+        # Check consitency
+        assert not(len(self.TF_AUGMENTERS)>0 and self.USE_MINI_MASK)
 
     def display(self):
         """Display Configuration values."""
