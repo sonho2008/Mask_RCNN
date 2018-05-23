@@ -5,6 +5,8 @@ import keras
 import keras.backend as K
 import keras.layers as KL
 
+def bbox_from_mask(mask):
+  return #TODO
 
 def aug_rotate(*args):
   return #TODO
