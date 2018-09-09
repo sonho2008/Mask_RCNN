@@ -5,6 +5,9 @@ logs/
 results/
 temp/
 test/
+tmp/*
+projects/*
+logs/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -56,8 +59,3 @@ pip-delete-this-directory.txt
 .venv
 venv/
 ENV/
-
-tmp/*
-projects/*
-logs/*
-
