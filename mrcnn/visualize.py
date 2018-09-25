@@ -280,7 +280,7 @@ def draw_box(image, box, color):
     return image
 
 
-def display_top_masks(image, mask, class_ids, class_names, limit=4, cmap="Vega20_r"):
+def display_top_masks(image, mask, class_ids, class_names, limit=4, cmap="gist_rainbow"):
     """Display the given image and the top few class masks."""
     to_display = []
     titles = []
